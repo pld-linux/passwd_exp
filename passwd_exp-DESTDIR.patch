@@ -1,0 +1,63 @@
+--- passwd_exp-1.2.9/Makefile.in~	2006-11-07 01:11:44.000000000 +0200
++++ passwd_exp-1.2.9/Makefile.in	2007-02-07 17:00:00.119437832 +0200
+@@ -89,25 +89,25 @@
+ install: install-perl-mod compile
+ 	@echo INSTALLING...
+ 	@echo "Creating $(sysconfdir)"
+-	@$(INSTALL) -d -m u=rwx,go=rx	$(sysconfdir)
+-	@if test -r "$(pw_conf)";	\
++	@$(INSTALL) -d -m u=rwx,go=rx	$(DESTDIR)$(sysconfdir)
++	@if test -r "$(DESTDIR)$(pw_conf)";	\
+ 		then echo "Installing $(pw_conf) as $(pw_conf).new";	\
+-		     $(INSTALL) -m u=rw,go=r $(prepdir)/$(pw_conf)	"$(pw_conf).new";	\
++		     $(INSTALL) -m u=rw,go=r $(prepdir)/$(pw_conf)	"$(DESTDIR)$(pw_conf).new";	\
+ 		else echo "Installing $(pw_conf)";	\
+-		     $(INSTALL) -m u=rw,go=r $(prepdir)/$(pw_conf)	$(pw_conf);	\
++		     $(INSTALL) -m u=rw,go=r $(prepdir)/$(pw_conf)	$(DESTDIR)$(pw_conf);	\
+ 	fi
+-	@$(INSTALL) -d -m u=rwx,go=rx	$(maildir)
+-	@$(INSTALL) -d -m u=rwx,go=rx	$(pw_moddir)
++	@$(INSTALL) -d -m u=rwx,go=rx	$(DESTDIR)$(maildir)
++	@$(INSTALL) -d -m u=rwx,go=rx	$(DESTDIR)$(pw_moddir)
+ 	@for file in `find "$(prepdir)/$(pw_moddir)/" ! -name "*.info" | sed -e 's:^$(prepdir)/$(pw_moddir)/::'`;	\
+ 			do echo "Installing module $$file";	\
+-			   $(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_moddir)/$$file $(pw_moddir)/$$file;	\
++			   $(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_moddir)/$$file $(DESTDIR)$(pw_moddir)/$$file;	\
+ 			   if test -r $(prepdir)/$(pw_moddir)/$$file.info;	\
+-				then $(INSTALL) -m u=rw,go=r $(prepdir)/$(pw_moddir)/$$file.info $(pw_moddir)/$$file.info;	\
++				then $(INSTALL) -m u=rw,go=r $(prepdir)/$(pw_moddir)/$$file.info $(DESTDIR)$(pw_moddir)/$$file.info;	\
+ 			   fi;	\
+ 	done;
+ 	@echo "Installing $(pw_man)"
+-	@$(INSTALL) -d -m u=rwx,go=rx	$(mandir)
+-	@$(INSTALL) -m u=rw,go=r $(prepdir)/$(mandir)/$(pw_man) $(mandir)/$(pw_man)
++	@$(INSTALL) -d -m u=rwx,go=rx	$(DESTDIR)$(mandir)
++	@$(INSTALL) -m u=rw,go=r $(prepdir)/$(mandir)/$(pw_man) $(DESTDIR)$(mandir)/$(pw_man)
+ 	@if test "$(cf_OLD_PEX)"; \
+ 		then echo "" >&2;	\
+ 		     echo "------------------------------------------------" >&2;	\
+@@ -119,17 +119,17 @@
+ 		     $(INSTALL) -m u=rw,go=r $(oldpexdir)/passwd_exp.conf $(pw_conf);	\
+ 	fi
+ 	@echo "Installing $(pw_script)"
+-	@$(INSTALL) -d `dirname "$(pw_script)"`
+-	@$(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_script) $(pw_script)
++	@$(INSTALL) -d $(DESTDIR)`dirname "$(pw_script)"`
++	@$(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_script) $(DESTDIR)$(pw_script)
+ 	@echo "Installing $(pw_cron)"
+-	@$(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_cron) $(pw_cron)
++	@$(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_cron) $(DESTDIR)$(pw_cron)
+ 	@echo "Installing $(pw_cron2)"
+-	@$(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_cron2) $(pw_cron2)
+-	-@if test -d "${crondir}" && test -w "${crondir}";	\
++	@$(INSTALL) -m u=rwx,go=rx $(prepdir)/$(pw_cron2) $(DESTDIR)$(pw_cron2)
++	-@if test -d "$(DESTDIR)${crondir}" && test -w "$(DESTDIR)${crondir}";	\
+ 		then	echo "Linking $(pw_cron)";		\
+-			ln -s -f $(pw_cron) ${crondir};		\
++			ln -s -f $(pw_cron) $(DESTDIR)${crondir};		\
+ 			echo "Linking $(pw_cron2)";		\
+-			ln -s -f $(pw_cron2) ${crondir2};	\
++			ln -s -f $(pw_cron2) $(DESTDIR)${crondir2};	\
+ 		else	echo "" >&2;	\
+ 			echo "---------------------------------------------------------------------------" >&2; \
+ 		        echo " WARNING: Failed to install cron tab scripts into CRONTAB DIRS."		 >&2; \

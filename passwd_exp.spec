@@ -10,8 +10,13 @@ Source0:	http://devel.dob.sk/passwd_exp/%{name}-%{version}b.tar.gz
 BuildRequires:	rpm-perlprov >= 4.1-13
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://devel.dob.sk/passwd_exp/
+BuildRequires:	autoconf
 BuildRequires:	perl-Text-Tokenizer
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# just bogus platform for configure -- whole package itself is noarch
+%define     _target_platform    i686-pld-linux
 
 %description
 passwd_exp notifies users of password or account expiration via email.
@@ -21,6 +26,7 @@ passwd_exp notifies users of password or account expiration via email.
 %patch0 -p1
 
 %build
+%{__autoconf}
 %configure \
 	--with-sendmail=/usr/lib/sendmail \
 	--with-mail=/bin/mail \

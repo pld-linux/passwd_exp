@@ -1,5 +1,6 @@
 %include	/usr/lib/rpm/macros.perl
-Summary:	password expiration email notifier
+Summary:	Password expiration email notifier
+Summary(pl.UTF-8):	Program do powiadamiania pocztą o wygasaniu hasła
 Name:		passwd_exp
 Version:	1.2.9
 Release:	0.2
@@ -7,11 +8,11 @@ License:	GPL v2
 Group:		Applications
 Source0:	http://devel.dob.sk/passwd_exp/%{name}-%{version}b.tar.gz
 # Source0-md5:	48eb2435cde93286cc05d3bfd20743c3
-BuildRequires:	rpm-perlprov >= 4.1-13
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://devel.dob.sk/passwd_exp/
 BuildRequires:	autoconf
 BuildRequires:	perl-Text-Tokenizer
+BuildRequires:	rpm-perlprov >= 4.1-13
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -20,6 +21,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 passwd_exp notifies users of password or account expiration via email.
+
+%description -l pl.UTF-8
+passwd_exp powiadamia użytkowników pocztą elektroniczną o wygasaniu
+hasła lub konta.
 
 %prep
 %setup -q

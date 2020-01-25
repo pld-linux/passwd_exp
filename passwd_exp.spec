@@ -1,4 +1,3 @@
-%include	/usr/lib/rpm/macros.perl
 Summary:	Password expiration email notifier
 Summary(pl.UTF-8):	Program do powiadamiania pocztą o wygasaniu hasła
 Name:		passwd_exp
